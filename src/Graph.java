@@ -7,10 +7,9 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+import javax.swing.*;
 
-public class Graph extends ApplicationFrame { //extends ApplicationFrame
+public class Graph extends JFrame { //extends ApplicationFrame
     //Select crimes_year from crimesdb
     //Find all results where 2001-2018 and put it into array of correct size
     //getAverage of that array

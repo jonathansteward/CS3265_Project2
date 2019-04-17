@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
+import javax.swing.*;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -16,17 +17,19 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
-public class TwoCountComparison extends ApplicationFrame {
+public class TwoCountComparison extends JFrame {
 
-        public TwoCountComparison(final String title, int count1, int count2) {
+        public TwoCountComparison(final String title, int count1, int count2,
+                                  String Category1, String Category2, String cName) {
 
             super(title);
 
-            final CategoryDataset dataset = createDataset(count1,count2);
-            final JFreeChart chart = createChart(dataset);
+            final CategoryDataset dataset = createDataset(count1,count2, Category1, Category2, cName);
+            final JFreeChart chart = createChart(dataset, title, cName);
             final ChartPanel chartPanel = new ChartPanel(chart);
             chartPanel.setPreferredSize(new Dimension(500, 270));
             setContentPane(chartPanel);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
 
         /**
@@ -34,19 +37,16 @@ public class TwoCountComparison extends ApplicationFrame {
          *
          * @return The dataset.
          */
-        private CategoryDataset createDataset(int count1, int count2) {
+        private CategoryDataset createDataset(int count1, int count2, final String c1, final String c2, final String cName) {
             // row keys...
-            final String series1 = "First";
 
-            // column keys...
-            final String category1 = "Category 1";
-            final String category2 = "Category 2";
+            // column keys are c1 and c2
 
             // create the dataset...
             final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-            dataset.addValue(count1, series1, category1);
-            dataset.addValue(count2, series1, category2);
+            dataset.addValue(count1, cName, c1);
+            dataset.addValue(count2, cName, c2);
 
             return dataset;
 
@@ -59,13 +59,13 @@ public class TwoCountComparison extends ApplicationFrame {
          *
          * @return The chart.
          */
-        private JFreeChart createChart(final CategoryDataset dataset) {
+        private JFreeChart createChart(final CategoryDataset dataset, String title, String cName) {
 
             // create the chart...
             final JFreeChart chart = ChartFactory.createBarChart(
-                    "Bar Chart Demo",         // chart title
-                    "Category",               // domain axis label
-                    "Value",                  // range axis label
+                    title,         // chart title
+                    "Types of " + cName,               // domain axis label
+                    "Number of " + cName,                  // range axis label
                     dataset,                  // data
                     PlotOrientation.VERTICAL, // orientation
                     true,                     // include legend

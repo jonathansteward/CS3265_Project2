@@ -1,5 +1,6 @@
 import org.jfree.ui.RefineryUtilities;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -29,7 +30,8 @@ public class Main {
                 st = conn.createStatement();
                 System.out.print("Enter type of graph: ");
                 int type = scanner.nextInt();
-
+                //Take input from String test1= JOptionPane.showInputDialog("Please input mark for test 1: ");
+                //Connect to
                 if(type==1) {
                     sql = ("Select crime_year from chicago_crimes where crime_year between 2001 and 2018;"); //how many entries do we need to select
                     rs = st.executeQuery(sql);
@@ -67,7 +69,8 @@ public class Main {
                         count2 = rs.getInt(1);
                     }
 
-                    final TwoCountComparison twoCountComparison = new TwoCountComparison("Bar Chart Demo", count1, count2);
+                    final TwoCountComparison twoCountComparison = new TwoCountComparison("Residence Burglary vs. Apartment Burglary",
+                            count1, count2, "Residence", "Apartment", "Burglaries");
                     twoCountComparison.pack();
                     RefineryUtilities.centerFrameOnScreen(twoCountComparison);
                     twoCountComparison.setVisible(true);
@@ -87,7 +90,8 @@ public class Main {
                         count2 = rs.getInt(1);
                     }
 
-                    final TwoCountComparison twoCountComparison = new TwoCountComparison("Bar Chart Demo", count1, count2);
+                    final TwoCountComparison twoCountComparison = new TwoCountComparison("Sidewalk Theft vs. Bar or Tavern Theft",
+                            count1, count2, "Sidewalk", "Bar or Tavern", "Thefts");
                     twoCountComparison.pack();
                     RefineryUtilities.centerFrameOnScreen(twoCountComparison);
                     twoCountComparison.setVisible(true);
