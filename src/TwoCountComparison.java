@@ -29,7 +29,7 @@ public class TwoCountComparison extends JFrame {
             final ChartPanel chartPanel = new ChartPanel(chart);
             chartPanel.setPreferredSize(new Dimension(500, 270));
             setContentPane(chartPanel);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
 
         /**
