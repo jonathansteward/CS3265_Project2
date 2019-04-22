@@ -31,18 +31,17 @@ public class Main {
         try {
             conn = DriverManager.getConnection(databaseURL);
             if (conn != null) {
-                System.out.println("Connected to the database");
+                System.out.println("Connected to the database!!!!!");
                 st = conn.createStatement();
-                int type;
+                String type;
                 //String text1;
 
                 do {
                     System.out.print("Enter type of graph: ");
-                    type = scanner.nextInt();
+                    type = scanner.next();
                     //text1 = JOptionPane.showInputDialog("Enter type of graph: ");
                     //type = Integer.parseInt(text1);
-                    //Leave inputDialog Up but continue to ask for some in
-                    if (type == 1) {
+                    if (type.equals("allyears")) { //change type numbers to names
                         sql = ("Select crime_year from chicago_crimes where crime_year between 2001 and 2018;"); //how many entries do we need to select
                         rs = st.executeQuery(sql);
 
@@ -57,14 +56,14 @@ public class Main {
 
                         //chart implementation
                         final Graph graph = new Graph(
-                                "XYLineAndShapeRenderer Demo",
+                                "Number of Crimes from 2001-2018",
                                 arr2
                         );
 
                         graph.pack();
                         RefineryUtilities.centerFrameOnScreen(graph);
                         graph.setVisible(true);
-                    } else if (type == 2) {
+                    } else if (type.equals("residencevsapartment")) {
                         sql = ("SELECT COUNT(*) FROM chicago_crimes WHERE primary_type = 'BURGLARY' AND location_desc = 'RESIDENCE';"); //how many entries do we need to select
                         rs = st.executeQuery(sql);
 
@@ -85,7 +84,7 @@ public class Main {
                         RefineryUtilities.centerFrameOnScreen(twoCountComparison);
                         twoCountComparison.setVisible(true);
 
-                    } else if (type == 3) {
+                    } else if (type.equals("sidewalkvsbar")) {
                         sql = ("SELECT COUNT(*) FROM chicago_crimes WHERE primary_type = 'THEFT' AND location_desc = 'SIDEWALK';"); //how many entries do we need to select
                         rs = st.executeQuery(sql);
 
@@ -105,7 +104,7 @@ public class Main {
                         twoCountComparison.pack();
                         RefineryUtilities.centerFrameOnScreen(twoCountComparison);
                         twoCountComparison.setVisible(true);
-                    } else if (type == 4){ //ArrestsVsTime
+                    } else if (type.equals("arrestsovertime")){ //ArrestsVsTime
                         sql = ("SELECT COUNT(*) FROM chicago_crimes WHERE arrest = 'TRUE' and crime_year = '2012';"); //how many entries do we need to select
                         rs = st.executeQuery(sql);
 
@@ -138,7 +137,7 @@ public class Main {
                         arrests_over_time.pack();
                         RefineryUtilities.centerFrameOnScreen(arrests_over_time);
                         arrests_over_time.setVisible(true);
-                    } else if (type == 5) {
+                    } else if (type.equals("narcoticsarrests")) {
                         sql = ("SELECT COUNT(*) FROM chicago_crimes WHERE primary_type = 'NARCOTICS' and crime_year = '2010';"); //how many entries do we need to select
                         rs = st.executeQuery(sql);
 
@@ -174,7 +173,7 @@ public class Main {
                             count5 = rs.getInt(1);
                         }
 
-                        final NarcoticsVsTime narcotic_crimes_over_time = new NarcoticsVsTime("Narcotic Crimes Over Time", count1,
+                        final NarcoticsVsTime narcotic_crimes_over_time = new NarcoticsVsTime("Narcotics Crimes Over Time", count1,
                                 count2, count3, count4, count5);
                         narcotic_crimes_over_time.pack();
                         RefineryUtilities.centerFrameOnScreen(narcotic_crimes_over_time);
@@ -182,7 +181,7 @@ public class Main {
                     } else{
                         JOptionPane.showMessageDialog(null,"Thank you for using our application");
                     }
-                } while(type != 6);
+                } while(!type.equals("end"));
                 conn.close();
             }
         } catch (SQLException ex) {

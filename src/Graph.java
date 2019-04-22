@@ -51,8 +51,8 @@ public class Graph extends JFrame { //extends ApplicationFrame
         XYDataset dataset = createSampleDataset(arr2);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 title,
-                "X",
-                "Y",
+                "Year",
+                "Number of Crimes",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
@@ -67,6 +67,7 @@ public class Graph extends JFrame { //extends ApplicationFrame
         final ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 300));
         setContentPane(chartPanel);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
 }
